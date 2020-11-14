@@ -7,6 +7,7 @@ ECMAScript6
 
 <br>
 <br>
+
 ### 변수와 상수
 ##### 변수 : 바뀔 수 있는 값
 ```javascript
@@ -21,6 +22,7 @@ const 상수명 = 상수값;
 
 >let, const는 IE9, IE10 같이 이전 버전에서는 사용이 불가능하다.
 그렇기 때문에 Babel같은 도구를 이용해 ES6를 ES5로 변환해 작동시킨다.
+<br>
 
 ### 데이터 타입
 
@@ -30,6 +32,7 @@ const 상수명 = 상수값;
 - 논리자료형(참/거짓) Boolean
 - null  **"값이 없다"**
 - undefined **"값이 정의되지 않았다"**
+<br>
 
 ### 연산자
 
@@ -56,6 +59,7 @@ const 상수명 = 상수값;
     === 은 값과 타입까지 같은지를 확인해준다
     (number)1 == (String)'1'   -> false
     ```
+<br>
 
 ### 조건문
 
@@ -84,6 +88,7 @@ const 상수명 = 상수값;
             나머지 실행 코드;
     }
     ```
+<br>
 
 ### 함수
 특정 코드를 하나의 명령으로 실행할 수 있게 해주는 기능
@@ -112,5 +117,64 @@ const 객체명 = {
 // 값 확인
 console.log(객체명.객체특징1);      // 특징 내용 1 반환
 ```
+<br>
 
-### 객체 비구조화 할당
+- ##### \* 객체 비구조화 할당, 구조 분해 \*
+    - Destructuring assignment
+    - 배열이나 객체 안의 값을 편하게 꺼내올 수 있는 표현식
+    - [training code](destructuring-assignment.js) --> `not complete`
+
+- ##### 객체 내 함수
+    ```javascript
+    // 선언
+    const 객체명 = {
+        객체특징1 : '특징 내용 1',
+        객체함수 : function 함수() {
+            // this = 자신이 속해있는 객체
+            console.log(this.객체특징1);
+        }
+    }
+
+    // 값 확인
+    console.log(객체명.객체함수);      // 특징 내용 1 반환
+    ```
+
+- ##### 객체의 Getter & Setter
+    - 접근자 프로퍼티 : 본질은 함수이며 함수에서 값을 get/set하는 역할 담당
+    [참고](https://ko.javascript.info/property-accessors)
+
+
+<br>
+
+### 배열
+[training-code](array.js)
+
+<br>
+
+### 반복문
+특정 작업을 반복적으로 할 때 사용
+- ##### for문
+    특정 값에 변화를 주어가면서 정해진 조건에 만족될 때까지 반복  
+    ```javascript
+    for(초기값; 조건문; 변화문){
+        실행 코드;
+    }
+    ```
+- ##### while
+    특정 조건이 `true`일 때까지 반복
+    ```javascript
+    while(조건){
+        실행 코드;
+    }
+    ``` 
+- ##### for ... of
+    배열에 특화된 반복문
+    ```javascript
+    let arr = [1,2,3];
+    for(let num of arr){        // arr의 값 개수만큼
+        console.log(num);
+    }
+    ```
+- ##### for ... in
+    객체를 위한 반복문
+    [이어 쓰기](learnjs.vlpt.us)
