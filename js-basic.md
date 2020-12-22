@@ -1,5 +1,7 @@
 # Java Script Basic Grammer
-> <small>빠르게 요약만 하기</small>
+> <small>빠르게 요약만 하기</small> 
+>
+> <small> * [참고](https://learnjs.vlpt.us/)</small>
 
 ### ES6 (ES2015)
 ECMAScript6
@@ -122,7 +124,7 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
 - ##### \* 객체 비구조화 할당, 구조 분해 \*
     - Destructuring assignment
     - 배열이나 객체 안의 값을 편하게 꺼내올 수 있는 표현식
-    - [training code](destructuring-assignment.js) --> `not complete`
+    - [training code](source-code/destructuring-assignment.js) --> `not complete`
 
 - ##### 객체 내 함수
     ```javascript
@@ -147,7 +149,7 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
 <br>
 
 ### 배열
-[training-code](array.js)
+[training-code](source-code/array.js)
 
 <br>
 
@@ -166,9 +168,10 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
     while(조건){
         실행 코드;
     }
-    ``` 
+    ```
 - ##### for ... of
-    배열에 특화된 반복문
+    **배열**에 특화된 반복문
+    
     ```javascript
     let arr = [1,2,3];
     for(let num of arr){        // arr의 값 개수만큼
@@ -176,5 +179,182 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
     }
     ```
 - ##### for ... in
-    객체를 위한 반복문
-    [이어 쓰기](learnjs.vlpt.us)
+    **객체**를 위한 반복문
+    
+    ```javascript
+    const object1 = {
+        name : 'obj',
+        number : 2
+    }
+    Object.entries(object1);  		// [["name", "obj"], ["number",2]]
+    Object.keys(Object1);			// ["name", "number"]
+    Object.values(Object1);			// ["obj", 2]
+    
+    for(let key in object1) {
+        console.log(`${key} : ${object1[key]}`);
+    }
+    ```
+
+<br>
+
+### 배열 내장 함수
+
+- ##### forEach
+
+  - for문의 간편 대체
+
+  ```javascript
+  const nums = ['one', 'two', 'three', 'four'];
+  
+  nums.forEach(i => {
+  	console.log(i);
+  })
+  ```
+
+- ##### map
+
+  - 배열 안의 각 원소를 변환 할 때 사용. 새로운 배열 생성
+
+  - [training-code](source-code/map.js)
+
+    ```javascript
+    const arr = [1,2,3,4,5,6,7,8,9];
+    
+    const rule = i => i*i;      // -> 변화함수
+    const squard3 = arr.map(rule);
+    
+    console.log("3 : ",squard3);
+    ```
+
+    > 변화함수 `rule`는 파라미터 i를 받아와 이를 제곱해준다
+    > arr.map에 rule 변화함수를 사용하여, arr 내부의 모든 값에 대해 제곱해서 새로운 배열 생성해줌
+
+- ##### indexOf
+
+  - 특정 항목이 몇번째 원소인지 확인
+
+    ```javascript
+    const letter = ['a', 'b', 'c', 'd'];
+    const index = letter.indexOf('c');
+    console.log(index);			// print : 2
+    ```
+
+- ##### findIndex
+
+  - 배열 안에 있는 값이 `숫자`, `문자열`, `불린`이 아니라면? `indexOf`로 찾을 수 없다! 
+
+  - 상단 타입 이외의 `객체`, `배열` 등의 원소 타입이라면 `findIndex`를 이용해 찾아야한다
+
+    ```javascript
+    const objectArr = [
+        {
+            id : 1,
+            describe : 'first obj',
+            result : true
+        },
+        {
+            id : 2,
+            describe : 'second obj',
+            result : false
+        },
+        {
+            id : 3,
+            describe : 'third obj',
+            result : true
+        }
+    ];
+    const index = objectArr.findIndex(i => i.id === 1);
+    console.log(index);			// print : 0
+    ```
+
+- ##### find
+
+  - 찾아낸 값이 몇 번째인지 반환하는 것이 아닌 **찾아낸 값 자체**를 반환
+
+    ```javascript
+    const objectArr = [
+        {
+            id : 1,
+            describe : 'first obj',
+            result : true
+        },
+        {
+            id : 2,
+            describe : 'second obj',
+            result : false
+        },
+        {
+            id : 3,
+            describe : 'third obj',
+            result : true
+        }
+    ];
+    const index = objectArr.find(i => i.id === 1);
+    console.log(index);     // print : { id: 1, describe: 'first obj', result: true }
+    ```
+
+- ##### filter
+
+  - 배열 내 **특정 조건** 값을 만족하는 객체들만 **따로 추출해 새로운 배열**을 만든다
+
+    ```javascript
+    const objectArr = [
+        {
+            id : 1,
+            describe : 'first obj',
+            result : true
+        },
+        {
+            id : 2,
+            describe : 'second obj',
+            result : false
+        },
+        {
+            id : 3,
+            describe : 'third obj',
+            result : true
+        }
+    ];
+    const filter = objectArr.filter(i => i.result === true);
+    // const filter = objectArr.filter(i => i.result); -> true
+    console.log(filter);
+    // [
+    //     { id: 1, describe: 'first obj', result: true },
+    //     { id: 3, describe: 'third obj', result: true }
+    // ]
+    ```
+
+- ##### splice
+
+  - 배열에서 특정 항목을 제거
+  - `arr.splice(몇 번째 인덱스부터, 몇 개를 지울지)` 
+
+- ##### slice
+
+  - 기존의 배열을 건드리지 않으면서 잘라내, 새로운 배열로 반환
+  - `arr.slice(몇 번째 인덱스부터, 몇 개까지 잘라서 저장)`
+
+- ##### shift
+
+  - 배열 내 첫 번째 원소를 추출 후 삭제
+
+- ##### unshift
+
+  - 배열의 맨 앞에 새 원소를 추가
+
+- ##### pop
+
+  - 배열 내 맨 마지막 항목을 추출 후 삭제
+
+- ##### concat
+
+  - 여러개의 배열을 하나의 배열로 합침
+
+- ##### join
+
+  - 배열 안의 값들을 문자열 형태로 합침
+  - `arr.join(원소 사이 구분해 입력할 문자)` -> 구분자가 없다면 , 로 구분해 문자열 합침
+
+- ##### reduce
+
+  - 
