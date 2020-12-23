@@ -3,14 +3,14 @@
 >
 > <small> * [참고](https://learnjs.vlpt.us/)</small>
 
-### ES6 (ES2015)
+### ES6 (ES2015) 🧲
 ECMAScript6
 2015년도에 도입된 자바스크립트 버전
 
 <br>
 <br>
 
-### 변수와 상수
+### 변수와 상수 🧲
 ##### 변수 : 바뀔 수 있는 값
 ```javascript
 let 변수명 =  변수값;
@@ -26,7 +26,11 @@ const 상수명 = 상수값;
 그렇기 때문에 Babel같은 도구를 이용해 ES6를 ES5로 변환해 작동시킨다.
 <br>
 
-### 데이터 타입
+<br>
+
+
+
+### 데이터 타입 🧲
 
 변수와 상수를 선언할 때, 들어갈 수 있는 데이터 타입은 무엇이 있을까?
 - 숫자 Number
@@ -34,20 +38,26 @@ const 상수명 = 상수값;
 - 논리자료형(참/거짓) Boolean
 - null  **"값이 없다"**
 - undefined **"값이 정의되지 않았다"**
+
 <br>
 
-### 연산자
+
+
+### 연산자 🧲
 
 - ##### 산술 연산자
     사칙연산 작업을 하는 연산자
     `+` `-` `*` `/`
+    
 - ##### 대입 연산자
     특정 값에 연산한 값을 설정해주는 연산자
     `=`
+    
 - ##### 논리 연산자
     boolean 타입을 위한 연산자
     `!`(NOT) `&&`(AND) `||`(OR)
     <u>*논리 연산자의 연산 순서?*</u> : NOT -> AND -> OR
+    
 - ##### 비교 연산자
     두 값을 비교하는 연산자
     `===` `!==` `>` `<`
@@ -62,8 +72,10 @@ const 상수명 = 상수값;
     (number)1 == (String)'1'   -> false
     ```
 <br>
+    
+    
 
-### 조건문
+### 조건문 🧲
 
 - ##### if문
     특정 **조건을 만족**했을 때 필요한 코드를 실행할 수 있다
@@ -76,6 +88,7 @@ const 상수명 = 상수값;
         나머지 조건 실행 코드;
     }
     ```
+    
 - ##### switch
     특정**값이 무엇**이냐에 따라 필요한 코드를 실행할 수 있다
     ```javascript
@@ -91,8 +104,10 @@ const 상수명 = 상수값;
     }
     ```
 <br>
+    
+    
 
-### 함수
+### 함수 🧲
 특정 코드를 하나의 명령으로 실행할 수 있게 해주는 기능
 ```javascript
 function 함수명(){
@@ -106,7 +121,12 @@ const 대입할 변수 = (매개변수, 매개변수) => {
 }
 ```
 
+<br>
+
+
+
 ### 객체
+
 ```javascript
 // 선언
 const 객체명 = {
@@ -145,15 +165,16 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
     - 접근자 프로퍼티 : 본질은 함수이며 함수에서 값을 get/set하는 역할 담당
     [참고](https://ko.javascript.info/property-accessors)
 
-
 <br>
 
-### 배열
+
+
+### 배열 🧲
 [training-code](source-code/array.js)
 
 <br>
 
-### 반복문
+### 반복문 🧲
 특정 작업을 반복적으로 할 때 사용
 - ##### for문
     특정 값에 변화를 주어가면서 정해진 조건에 만족될 때까지 반복  
@@ -197,7 +218,9 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
 
 <br>
 
-### 배열 내장 함수
+
+
+### 배열 내장 함수 🧲
 
 - ##### forEach
 
@@ -357,4 +380,94 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
 
 - ##### reduce
 
+  - [training-code](source-code/reduce.js)
+
+
+
+### 프로토타입과 클래스 🧲
+
+- ##### 객체 생성자 
+
+  - 새로운 객체를 만들고 속성 값을 입력해줄 객체 생성자
+
+- ##### 프로토타입
+
+  - 같은 객체 생성자를 사용하는 경우, 특정 함수 또는 값을 재사용할 수 있도록 한다
+
+    ```javascript
+    // 생성자
+    function Animal(type, name, sound){
+        this.type = type;
+        this.name = name;
+        this.sound = sound;
+    }
+    // 프로토 타입을 사용해 특정 값 재사용
+    Animal.prototype.say = function(){
+        console.log(this.sound);
+    }
+    Animal.prototype.sharedNumber = 100;
+    
+    const dog = new Animal('개', '갱얼쥐', '멍멍');
+    const cat = new Animal('고양이', '고영희', '냐옹');
+    
+    dog.say();	// 멍멍
+    cat.say();	// 냐옹
+    
+    console.log(dog.sharedNumber);		// 100
+    console.log(cat.sharedNumber);		// 100
+    ```
+
+- ##### 객체 생성자 `상속`
+
   - 
+
+    ```javascript
+    // ... 위 코드 이어서
+    
+    function Puppy(name, sound){
+        // 첫번째 파라미터 : this
+        // 나머지 파라미터 : 상속받을 객체 생성자에서 필요한 값들
+        Animal.call(this, '123456', name, sound);
+    }
+    // prototype 공유
+    Puppy.prototype = Animal.prototype;
+    
+    const puppy = new Puppy('베이비독', '왕왕');
+    puppy.say(); 	// 왕왕
+    ```
+
+- 클래스
+
+  - 위 작성 코드를 클래스로 변환해보기
+
+    ```javascript
+    // 클래스로 변환
+    class Animal{
+        constructor(type, name, sound){
+            this.type = type;
+            this.name = name;
+            this.sound = sound;
+        }
+        say(){
+            console.log(this.sound);
+        }
+    }
+    
+    const dog = new Animal('개', '갱얼쥐', '멍멍');
+    const cat = new Animal('고양이', '고영희', '냐옹');
+    
+    dog.say();	// 멍멍
+    cat.say();	// 냐옹
+    
+    class Puppy extends Animal{
+        constructor(name, sound){
+            super('123456', name, sound);
+        }
+    }
+    
+    const puppy = new Puppy('베이비독', '왕왕');
+    puppy.say();            // 왕왕
+    console.log(puppy);     // Puppy { type: '123456', name: '베이비독', sound: '왕왕' }
+    ```
+
+    > say 함수가 클래스 내부에 메서드로 선언되며, 메서드는 자동으로 prototype으로 등록이 된다 
