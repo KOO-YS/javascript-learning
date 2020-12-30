@@ -29,6 +29,22 @@ const testPromise = new Promise((resolve, reject) => {
     // or
     // reject("fail");			- 실패 오류 원인 반환
 });
+
+// example
+const testPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('성공 결과');
+        // or
+        // reject(new Error());
+    }, 1000);
+});
+
+// promise가 끝나고 이어서 진행할 작업
+testPromise.then(result => {
+    console.log(result);
+}).catch(e => {
+    console.error(e);
+});
 ```
 
 
@@ -41,4 +57,126 @@ const testPromise = new Promise((resolve, reject) => {
 
 - rejected(실패) : 비동기 처리가 실패 또는 오류
 
-  
+
+
+
+---
+
+
+
+#### Promise를 이용한 코드 개선
+
+1. `increaseAndPrint()` 메소드를 5번 반복하고 싶다
+
+   ```javascript
+   // 1초 뒤에 n이 1 증가하는 함수
+   function increaseAndPrint(n, callback){
+       setTimeout(() => {
+           const increased = n+1;
+           console.log(increased);
+           if(callback){
+               callback(increased);
+           }
+       }, 1000);
+   }
+   
+   // 함수를 5번 반복하는 방법
+   increaseAndPrint(0, n => {
+       increaseAndPrint(n, n => {
+           increaseAndPrint(n, n => {
+               increaseAndPrint(n, n => {
+                   increaseAndPrint(n, n => {
+                       console.log("end");		// 코드의 깊이가 반복할 만큼 깊어진다..
+                   });
+               });
+           });
+       });
+   });
+   ```
+
+   <br>
+
+2. Promise를 사용한 `increaseAndPrint()` 메소드 5번 반복
+
+   ``` javascript
+   function increaseAndPrint(n){
+       return new Promise((resolve, reject) =>{
+           setTimeout(() =>{
+               const value = n + 1;
+               if(value ===  5){		// 5번째 반복일때 error 발생
+                   const error = new Error();
+                   error.name = 'ERROR::ValueIsFive';
+                   reject(error);		
+                   return;
+               }
+               console.log(value);
+               resolve(value);
+           }, 1000);
+       });
+   }
+   
+   
+   increaseAndPrint(0).then(n => {
+       return increaseAndPrint(n);
+   }).then(n => {
+       return increaseAndPrint(n);
+   }).then(n => {
+       return increaseAndPrint(n);
+   }).then(n => {
+       return increaseAndPrint(n);
+   }).then(n => {
+       return increaseAndPrint(n);
+   }).catch(e => {
+       console.error(e);
+   });
+   ```
+
+   :bulb: ***코드의 깊이가 깊어지지 않는다.***
+
+   <br>
+
+3. Promise 코드 단축
+
+   ```javascript
+   function increaseAndPrint(n){
+       return new Promise((resolve, reject) =>{
+           setTimeout(() =>{
+               const value = n + 1;
+               if(value ===  5){
+                   const error = new Error();
+                   error.name = 'ERROR::ValueIsFive';
+                   reject(error);
+                   return;
+               }
+               console.log(value);
+               resolve(value);
+           }, 1000);
+       });
+   }
+   
+   increaseAndPrint(0)
+   .then(increaseAndPrint)
+   .then(increaseAndPrint)
+   .then(increaseAndPrint)
+   .then(increaseAndPrint)
+   .catch(e => {
+       console.error(e);
+   });
+   ```
+
+   
+
+##### Promise의 특징 
+
+- ###### 장점
+
+  - 비동기 작업의 작업이 많아져도 **코드의 깊이가 깊어지지 않는다**
+
+- ###### 단점
+
+  - **에러가 발생한 위치**를 찾아내기 힘들다
+  - 결과에 따른 **분기 처리**가 힘들다
+
+
+
+> **Promise**의 단점을 개선하기 위해 `async` & `await` 등장
