@@ -144,7 +144,7 @@ console.log(객체명.객체특징1);      // 특징 내용 1 반환
 - ##### \* 객체 비구조화 할당, 구조 분해 \*
     - Destructuring assignment
     - 배열이나 객체 안의 값을 편하게 꺼내올 수 있는 표현식
-    - [training code](source-code/destructuring-assignment.js) --> `not complete`
+    - [training code](js-basic/destructuring-assignment.js) --> `not complete`
 
 - ##### 객체 내 함수
     ```javascript
