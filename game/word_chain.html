@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+</head>
+<body>
+
+<script>
+    let body = document.body;
+    
+    let word = document.createElement('div');
+    word.textContent = '이전말';
+    document.body.append(word);
+
+    let input = document.createElement('input');
+    document.body.append(input);
+    
+    let button = document.createElement('button');
+    button.textContent = 'write';
+    document.body.append(button);
+    
+    let result = document.createElement('div');
+    document.body.append(result);
+
+    // 속성값을 더 확인하려면? console.dir(document.body)
+    button.addEventListener('click', function(){
+        let before = word.textContent;
+        // 이전의 말의 끝 음절 == 입력값의 첫 음절
+        if(before[before.length - 1] === input.value[0]){
+            result.textContent = "Right";
+
+            // 다음 단어로 게임 진행하기 위해 초기화
+            word.textContent = input.value;
+            input.value = '';
+            
+        } else {
+            result.textContent = "Wrong";
+        }
+        // document.body.append(result); 따로 안넣어줘도 됨
+    });
+</script>
+</body>
+</html>
